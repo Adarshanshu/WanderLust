@@ -103,9 +103,9 @@ const sessionOption ={
 };
 
 
-// app.get("/",(req,res) =>{
-//     res.send("hii i am root or main landing page");
-// });
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 app.use(session(sessionOption))
 app.use(flash());
