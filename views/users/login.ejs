@@ -1,0 +1,23 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="auth-page">
+  <section class="auth-card" aria-labelledby="login-title">
+    <div class="auth-mark"><i class="fa-regular fa-compass" aria-hidden="true"></i></div>
+    <p class="auth-eyebrow">Good to have you back</p>
+    <h1 id="login-title">Log in to WanderLust</h1>
+    <p class="auth-subtitle">Pick up where your next adventure begins.</p>
+
+    <form action="/login" method="POST" class="auth-form">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" name="username" class="form-control" type="text" autocomplete="username" required placeholder="Your username">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" name="password" class="form-control" type="password" autocomplete="current-password" required placeholder="Your password">
+      </div>
+      <button class="btn auth-submit w-100" type="submit">Log in <i class="fa-solid fa-arrow-right ms-2" aria-hidden="true"></i></button>
+    </form>
+    <p class="auth-switch">New to WanderLust? <a href="/signup">Create an account</a></p>
+  </section>
+</main>

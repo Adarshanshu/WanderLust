@@ -1,0 +1,101 @@
+<% layout("/layouts/boilerplate") %>
+<% const imageUrl = typeof listing.image === "string" ? listing.image : listing.image.url; %>
+<% const mapQuery = encodeURIComponent([listing.location, listing.country].filter(Boolean).join(", ")); %>
+
+<section class="show-page">
+    <h2 class="show-heading"><%= listing.title %></h2>
+
+    <div class="show-card">
+        <div class="show-image-wrap">
+            <img src="<%= imageUrl %>" alt="<%= listing.title %> image" class="show-image">
+        </div>
+
+        <div class="show-details">
+            <p><span class="detail-label">Owned by:</span> <%= listing.owner ? listing.owner.username : "Unknown" %></p>
+            <p><span class="detail-label">Description:</span> <%= listing.description %></p>
+            <p><span class="detail-label">Price:</span> &#8377; <%= listing.price.toLocaleString("en-IN") %></p>
+            <p><span class="detail-label">Location:</span> <%= listing.location %></p>
+            <p><span class="detail-label">Country:</span> <%= listing.country %></p>
+        </div>
+    </div>
+
+    <div class="show-actions">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit Listing</a>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button class="btn btn-danger">Delete Listing</button>
+        </form>
+    </div>
+
+    <% if (currentUser) { %>
+    <section class="review-section mt-4" aria-labelledby="review-heading">
+        <h3 id="review-heading">Leave a Review</h3>
+        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="mt-3">
+            <div class="mb-3">
+                <label for="review-rating" class="form-label">Rating</label>
+                <select id="review-rating" name="review[rating]" class="form-select" required>
+                    <option value="" selected disabled>Choose a rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="review-comment" class="form-label">Comment</label>
+                <textarea id="review-comment" name="review[comment]" class="form-control" rows="4" placeholder="Share your experience" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Submit Review</button>
+        </form>
+    </section>
+    <% } else { %>
+    <p class="mt-4"><a href="/login">Log in</a> to leave a review.</p>
+    <% } %>
+
+    <section class="reviews-list mt-5" aria-labelledby="reviews-list-heading">
+        <h3 id="reviews-list-heading">Reviews</h3>
+        <% if (listing.reviews && listing.reviews.length > 0) { %>
+            <div class="row g-3 mt-1">
+                <% for (const review of listing.reviews) { %>
+                    <article class="col-12 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="review-rating mb-2" aria-label="Rated <%= review.rating %> out of 5 stars">
+                                    <span class="rating-stars" aria-hidden="true"><% for (let star = 1; star <= 5; star++) { %><%= star <= review.rating ? "★" : "☆" %><% } %></span>
+                                    <span class="rating-value"><%= review.rating %> / 5</span>
+                                </p>
+                                <p class="card-text"><%= review.comment %></p>
+                                <small class="text-muted">
+                                    <%= review.owner ? `By ${review.owner.username} · ` : "" %><%= review.createdAt ? new Date(review.createdAt).toLocaleDateString("en-IN") : "" %>
+                                </small>
+                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mt-3">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete Review</button>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+    <% } else { %>
+        <p class="text-muted mt-2">No reviews yet. Be the first to leave one.</p>
+    <% } %>
+    </section>
+
+    <section class="listing-map-section" aria-labelledby="listing-map-heading">
+        <h3 id="listing-map-heading">Where you'll be</h3>
+        <p class="text-muted"><%= listing.location %><%= listing.country ? `, ${listing.country}` : "" %></p>
+        <div class="listing-map-wrap">
+            <iframe
+                class="listing-map"
+                title="Map showing <%= listing.location %><%= listing.country ? `, ${listing.country}` : "" %>"
+                src="https://maps.google.com/maps?q=<%= mapQuery %>&amp;output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+            ></iframe>
+        </div>
+        <a class="listing-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=<%= mapQuery %>" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+    </section>
+</section>

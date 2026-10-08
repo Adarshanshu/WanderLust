@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate") %>
+    <section class="stay-categories" aria-label="Filter listings by stay type">
+      <button type="button" class="stay-category <%= searchCategory === 'all' ? 'active' : '' %>" data-category-filter="all" aria-pressed="<%= searchCategory === 'all' %>">
+        <i class="fa-solid fa-icons" aria-hidden="true"></i>
+        <span>All stays</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'hotels' ? 'active' : '' %>" data-category-filter="hotels" aria-pressed="<%= searchCategory === 'hotels' %>">
+        <i class="fa-solid fa-hotel" aria-hidden="true"></i>
+        <span>Hotels</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'homes' ? 'active' : '' %>" data-category-filter="homes" aria-pressed="<%= searchCategory === 'homes' %>">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Homes</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'villas' ? 'active' : '' %>" data-category-filter="villas" aria-pressed="<%= searchCategory === 'villas' %>">
+        <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
+        <span>Villas</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'beach' ? 'active' : '' %>" data-category-filter="beach" aria-pressed="<%= searchCategory === 'beach' %>">
+        <i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i>
+        <span>Beach stays</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'mountain' ? 'active' : '' %>" data-category-filter="mountain" aria-pressed="<%= searchCategory === 'mountain' %>">
+        <i class="fa-solid fa-mountain-sun" aria-hidden="true"></i>
+        <span>Mountain stays</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'cabins' ? 'active' : '' %>" data-category-filter="cabins" aria-pressed="<%= searchCategory === 'cabins' %>">
+        <i class="fa-solid fa-campground" aria-hidden="true"></i>
+        <span>Cabins</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'lake' ? 'active' : '' %>" data-category-filter="lake" aria-pressed="<%= searchCategory === 'lake' %>">
+        <i class="fa-solid fa-water" aria-hidden="true"></i>
+        <span>Lake stays</span>
+      </button>
+      <button type="button" class="stay-category <%= searchCategory === 'apartments' ? 'active' : '' %>" data-category-filter="apartments" aria-pressed="<%= searchCategory === 'apartments' %>">
+        <i class="fa-solid fa-building" aria-hidden="true"></i>
+        <span>Apartments</span>
+      </button>
+    </section>
+    <p class="category-empty-state" <%= allListing.length > 0 ? 'hidden' : '' %>>No listings match your search.</p>
+    <!-- <form method="GET" action="/listings/new">
+        <button type="submit">Create New Listing</button>
+    </form> -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+         <% for(let listing of allListing) { %>
+    <% const imageUrl = typeof listing.image === "string" ? listing.image : listing.image.url; %>
+    <div class="col d-flex listing-result" data-listing-category="<%= listing.category || listingCategoryFromText(listing) %>" data-searchable="<%= `${listing.title || ''} ${listing.description || ''} ${listing.location || ''} ${listing.country || ''}`.toLowerCase() %>">
+      <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
+        <div class="card listing-card h-100 w-100">
+          <div class="listing-img-wrap">
+            <img src="<%= imageUrl %>" class="card-img-top listing-img" alt="Listing_image">
+            <div class="card-img-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text text-muted">Owned by: <%= listing.owner ? listing.owner.username : "Unknown" %></p>
+            <p class="card-text">
+              &#8377; <%= listing.price.toLocaleString("en-IN") %>/night
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+ <% } %>
+  </div>
+  <script src="/js/listing-filters.js"></script>

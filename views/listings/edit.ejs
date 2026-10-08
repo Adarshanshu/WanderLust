@@ -1,0 +1,107 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3 class="mb-3">Edit Listing</h3>
+    <% const imageUrl = typeof listing.image === "string" ? listing.image : listing.image.url; %>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="listing[title]"
+          class="form-control"
+          value="<%= listing.title %>"
+          required
+        >
+        <div class="valid-feedback">Title looks good</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="listing[description]"
+          class="form-control"
+          rows="4"
+          required
+        ><%= listing.description %></textarea>
+        <div class="valid-feedback">Description is ok</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Stay type</label>
+        <select id="category" name="listing[category]" class="form-select" required>
+          <option value="homes" <%= listingCategory === "homes" ? "selected" : "" %>>Homes</option>
+          <option value="hotels" <%= listingCategory === "hotels" ? "selected" : "" %>>Hotels</option>
+          <option value="villas" <%= listingCategory === "villas" ? "selected" : "" %>>Villas</option>
+          <option value="beach" <%= listingCategory === "beach" ? "selected" : "" %>>Beach stays</option>
+          <option value="mountain" <%= listingCategory === "mountain" ? "selected" : "" %>>Mountain stays</option>
+          <option value="cabins" <%= listingCategory === "cabins" ? "selected" : "" %>>Cabins</option>
+          <option value="lake" <%= listingCategory === "lake" ? "selected" : "" %>>Lake stays</option>
+          <option value="apartments" <%= listingCategory === "apartments" ? "selected" : "" %>>Apartments</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input
+          type="url"
+          id="image"
+          name="listing[image][url]"
+          class="form-control"
+          value="<%= imageUrl %>"
+          placeholder="enter a valid image URL"
+        >
+      </div>
+
+      <div class="row">
+        <div class="col-4 mb-3 mb-md-0">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            id="price"
+            name="listing[price]"
+            class="form-control"
+            value="<%= listing.price %>"
+            min="0"
+            required
+          >
+          <div class="valid-feedback">Enter price</div>
+        </div>
+
+        <div class="col-8 mb-3 mb-md-0">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            id="country"
+            name="listing[country]"
+            class="form-control"
+            value="<%= listing.country %>"
+            required
+          >
+          <div class="valid-feedback">Country should be valid</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="listing[location]"
+          class="form-control"
+          value="<%= listing.location %>"
+          required
+        >
+        <div class="valid-feedback">Location should be valid</div>
+      </div>
+
+      <button type="submit" class="btn btn-dark add-btn">Save Changes</button>
+      <br><br>
+    </form>
+  </div>
+</div>
+<script src="/js/script.js"></script>

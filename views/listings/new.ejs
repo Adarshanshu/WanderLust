@@ -1,0 +1,112 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3 class="mb-3">Create New Listing</h3>
+
+    <form method="POST" action="/listings" enctype="multipart/form-data" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          required
+        >
+        <div class="valid-feedback">Title looks good</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="4"
+          required
+        ></textarea>
+        <div class="valid-feedback">Description is ok</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Stay type</label>
+        <select id="category" name="category" class="form-select" required>
+          <option value="homes" selected>Homes</option>
+          <option value="hotels">Hotels</option>
+          <option value="villas">Villas</option>
+          <option value="beach">Beach stays</option>
+          <option value="mountain">Mountain stays</option>
+          <option value="cabins">Cabins</option>
+          <option value="lake">Lake stays</option>
+          <option value="apartments">Apartments</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="imageFile" class="form-label">Upload an image</label>
+        <input
+          type="file"
+          id="imageFile"
+          name="imageFile"
+          class="form-control"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+        >
+        <div class="form-text">Optional. JPG, PNG, WEBP, or GIF, up to 5 MB.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="imageUrl" class="form-label">Or use an image URL</label>
+        <input
+          type="url"
+          id="imageUrl"
+          name="imageUrl"
+          class="form-control"
+          placeholder="enter a valid image URL"
+        >
+      </div>
+
+      <div class="row">
+        <div class="col-4 mb-3 mb-md-0">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            id="price"
+          name="price"
+            class="form-control"
+            min="0"
+            required
+          >
+          <div class="valid-feedback">Enter price</div>
+        </div>
+
+        <div class="col-8 mb-3 mb-md-0">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            id="country"
+          name="country"
+            class="form-control"
+            required
+          >
+          <div class="valid-feedback">Country should be valid</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          class="form-control"
+          required
+        >
+        <div class="valid-feedback">Location should be valid</div>
+      </div>
+
+      <button type="submit" class="btn btn-dark add-btn">Add</button>
+      <br><br>
+    </form>
+  </div>
+</div>

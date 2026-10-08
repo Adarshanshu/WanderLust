@@ -1,0 +1,34 @@
+
+{
+   "engines": {
+    "node": "24.13.0"
+  },
+
+  "name": "majorproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cloudinary": "^2.11.0",
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^18.0.6",
+    "ejs": "^5.0.2",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^9.4.1",
+    "multer": "^2.4.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^9.2.0"
+  }
+}

@@ -1,0 +1,27 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="auth-page">
+  <section class="auth-card" aria-labelledby="signup-title">
+    <div class="auth-mark"><i class="fa-regular fa-compass" aria-hidden="true"></i></div>
+    <p class="auth-eyebrow">Your next trip starts here</p>
+    <h1 id="signup-title">Create your account</h1>
+    <p class="auth-subtitle">Join WanderLust and find a place worth remembering.</p>
+
+    <form action="/signup" method="POST" class="auth-form">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" name="username" class="form-control" type="text" autocomplete="username" required minlength="3" placeholder="Choose a username">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input id="email" name="email" class="form-control" type="email" autocomplete="email" required placeholder="you@example.com">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" name="password" class="form-control" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters">
+      </div>
+      <button class="btn auth-submit w-100" type="submit">Create account <i class="fa-solid fa-arrow-right ms-2" aria-hidden="true"></i></button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="/login">Log in</a></p>
+  </section>
+</main>
